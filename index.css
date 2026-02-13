@@ -1,0 +1,73 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #dd72b4; /* RedPink */
+    font-family: "Sukhumvit Set", "Apple SD Gothic Neo", sans-serif;
+    overflow: hidden;
+    transition: background-color 1.5s ease;
+}
+
+.container {
+    text-align: center;
+    position: relative;
+    width: 100%;
+}
+
+#gift-box {
+    font-size: 400px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    z-index: 10;
+}
+
+#gift-box:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+#valentine-text {
+    display: none;
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #ff4d6d;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+}
+
+/* Animation for the text moving up */
+@keyframes moveUp {
+    from { top: 50%; opacity: 0; }
+    to { top: 25%; opacity: 1; }
+}
+
+#celebration-gif {
+    display: none;
+    margin-top: 30px;
+    width: 280px;
+    border-radius: 20px;
+}
+
+/* Floating Heart Styles */
+.heart {
+    position: absolute;
+    color: #ff4d6d;
+    font-size: 25px;
+    pointer-events: none;
+    animation: fly 2.5s ease-out forwards;
+}
+
+@keyframes fly {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
+}
+
+.hidden {
+    display: none;
+}
