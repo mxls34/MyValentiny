@@ -1,32 +1,35 @@
 function startSurprise() {
-    document.getElementById('On-trap').style.display = 'none';
-    
+    const body = document.body;
     const gift = document.getElementById('gift-box');
     const text = document.getElementById('valentine-text');
-    const gif = document.getElementById('celebration-gif');
-    const body = document.body;
+    const gifContainer = document.getElementById('gif-container');
 
-    // 1. Create 40 floating hearts around the center
+    // 1. เปลี่ยนพื้นหลังและซ่อนกล่องของขวัญ
+    body.style.backgroundColor = "white";
+    gift.style.display = "none";
+
+    // 2. สร้างหัวใจกระจายรอบจุดที่คลิก
     for (let i = 0; i < 40; i++) {
         createHeart();
     }
 
-    // 2. Turn background to white
-    body.style.backgroundColor = "white";
-
-    // 3. Hide the gift box immediately
-    gift.classList.add('hidden');
-
-    // 4. Show the text and trigger the upward animation
+    // 3. แสดงข้อความและเลื่อนขึ้น
     text.style.display = "block";
-    setTimeout(() => {
-        text.style.animation = "moveUp 2.5s forwards";
-    }, 100);
+    text.style.animation = "moveUp 2s forwards";
 
-    // 5. Reveal the GIF after the text has moved significantly
+    // 4. หลังจากข้อความเลื่อนเสร็จ (2 วินาที) ให้ย่อขนาดลง
     setTimeout(() => {
-        gif.style.display = "inline-block";
-    }, 1800);
+        text.style.fontSize = "1.8rem"; // ขนาดที่ย่อลง
+        text.style.marginTop = "-5rem"; // ขยับขึ้นไปอีกนิดเพื่อเพิ่มที่ให้ GIF
+    }, 2500);
+
+    // 5. แสดง GIF หลังจากย่อข้อความเสร็จ
+    setTimeout(() => {
+        gifContainer.style.display = "block";
+        setTimeout(() => {
+            gifContainer.style.opacity = "1";
+        }, 100);
+    }, 3500);
 }
 
 function createHeart() {
@@ -34,23 +37,17 @@ function createHeart() {
     heart.className = 'heart';
     heart.innerHTML = "❤️";
     
-    // Calculate random burst directions
+    // คำนวณระยะกระจายตามขนาดหน้าจอ (หน่วย rem เพื่อความคงที่)
     const angle = Math.random() * Math.PI * 2;
-    const distance = 200 + Math.random() * 300;
-    const x = Math.cos(angle) * distance + "px";
-    const y = Math.sin(angle) * distance + "px";
+    const velocity = window.innerWidth < 500 ? 15 : 25; 
+    const x = Math.cos(angle) * (Math.random() * velocity) + "rem";
+    const y = Math.sin(angle) * (Math.random() * velocity) + "rem";
     
     heart.style.setProperty('--x', x);
     heart.style.setProperty('--y', y);
-    
-    // Start from center
     heart.style.left = "50%";
     heart.style.top = "50%";
 
     document.body.appendChild(heart);
-
-    // Clean up memory
-    setTimeout(() => {
-        heart.remove();
-    }, 2500);
+    setTimeout(() => { heart.remove(); }, 2500);
 }
